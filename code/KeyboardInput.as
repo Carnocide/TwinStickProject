@@ -17,10 +17,10 @@
 		static private function updateKey(keyCode:int, isDown:Boolean):void {
 			
 			if(keyCode == 13) keyEnter = isDown;
-			if(keyCode == 37) keyLeft = isDown;
-			if(keyCode == 38) keyUp = isDown;
-			if(keyCode == 39) keyRight = isDown;
-			if(keyCode == 40) keyDown = isDown;
+			if(keyCode == 65) keyLeft = isDown;
+			if(keyCode == 87) keyUp = isDown;
+			if(keyCode == 68) keyRight = isDown;
+			if(keyCode == 83) keyDown = isDown;
 		}
 		static private function handleKeyDown(e:KeyboardEvent):void {
 			//trace(e.keyCode);

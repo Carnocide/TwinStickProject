@@ -42,7 +42,7 @@
 				x = p.x;
 				y = p.y;
 				
-				var angle:Number = (p.rotation - 90) * Math.PI / 180;
+				var angle:Number = (p.turret.rotation - 90) * Math.PI / 180;
 				
 				velocityX = SPEED * Math.cos(angle);
 				velocityY = SPEED * Math.sin(angle);
