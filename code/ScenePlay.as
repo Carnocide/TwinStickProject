@@ -49,14 +49,14 @@
 			
 			removeChild(player);
 			
-			for (var i:int = 0; i < snowflakes.length; i++) {
-				snowflakes[i].isDead = true;
+			for (var s:int = 0; s < snowflakes.length; s++) {
+				snowflakes[s].isDead = true;
 			}
-			for (var i:int = 0; i < bullets.length; i++) {
-				bullets[i].isDead = true;
+			for (var b:int = 0; b < bullets.length; b++) {
+				bullets[b].isDead = true;
 			}
-			for (var i:int = 0; i < bulletsBad.length; i++) {
-				bulletsBad[i].isDead = true;
+			for (var a:int = 0; a < bulletsBad.length; a++) {
+				bulletsBad[a].isDead = true;
 			}
 			
 		}
@@ -180,11 +180,11 @@
 			} // for loop updating bullets
 
 
-			for (var i = bulletsBad.length - 1; i >= 0; i--) {
-				bulletsBad[i].update();
-				if (bulletsBad[i].isDead) {
-					removeChild(bulletsBad[i]);
-					bulletsBad.splice(i, 1);
+			for (var b = bulletsBad.length - 1; b >= 0; b--) {
+				bulletsBad[b].update();
+				if (bulletsBad[b].isDead) {
+					removeChild(bulletsBad[b]);
+					bulletsBad.splice(bssssssss, 1);
 				}
 			} // for loop updating bullets			
 
@@ -205,7 +205,16 @@
 		* Checks for all types of collision
 		*/
 		private function collisionDetection(): void {
-			//enemies and our bullets
+			collisionEnemiesAndOurBullets();
+			
+			collisionUsAndEnemyBullets();
+			
+			collisionPowerupsAndOurBullets();
+			
+			
+		}// end collisionDetection()
+		
+		private function collisionEnemiesAndOurBullets():void {
 			for (var i: int = 0; i < snowflakes.length; i++) {
 				for (var j: int = 0; j < bullets.length; j++) {
 
@@ -218,11 +227,14 @@
 						if (!bullets[j].isBig) bullets[j].isDead = true;
 
 
-						powerupSlowmoTimer = 2;
+						//powerupSlowmoTimer = 2;
 
 					}
 				}
 			}
+		}// end collisionEnemiesAndOurBullets
+		
+		private function collisionUsAndEnemyBullets():void {
 			// us and enemy bullets
 			for (var i: int = 0; i < bulletsBad.length; i++) {
 				var dx: Number = bulletsBad[i].x - player.x;
@@ -232,11 +244,14 @@
 				if (dis < player.radius + bulletsBad[i].radius) {
 					// collision!
 
-					//isGameOver = true;
+					isGameOver = true;
 					
 
 				}
 			}
+		} // end collisionUsAndEnemyBullets
+		
+		private function collisionPowerupsAndOurBullets():void {
 			//powerups and our bullets
 			for (var i: int = 0; i < bullets.length; i++) {
 				for (var j: int = 0; j < powerups.length; j++) {
@@ -247,14 +262,12 @@
 					if (dis < powerupRadius + bullets[i].radius) {
 						if (!bullets[i].isBig) bullets[i].isDead = true;
 						powerups[j].isDead = true;
-						trace("supposed to be dead");
 						var result = powerups[j].powerupType();
-						if (result = "Big Bullet") player.bigBulletPowerUp = true;
+						if (result == "Big Bullet") player.bigBulletPowerUp = true;
 					}
 				}
 			}
-			
-		}
+		}// end collisionPowerupsAndOurBullets():void
 
 	}
 

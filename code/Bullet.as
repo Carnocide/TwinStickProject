@@ -19,7 +19,7 @@
 		
 		public function Bullet(p:Player, s:Snow = null) {
 			
-			
+			var angle:Number
 			if(s){ // enemy bullet:
 				x = s.x;
 				y = s.y;
@@ -28,7 +28,7 @@
 				var tx:Number = p.x - s.x;
 				var ty:Number = p.y - s.y;
 				
-				var angle:Number = Math.atan2(ty, tx);
+				angle = Math.atan2(ty, tx);
 				angle += (Math.random() * 20 + Math.random() * -20) * Math.PI / 180;
 				
 				velocityX = SPEED * Math.cos(angle);
@@ -42,7 +42,7 @@
 				x = p.x;
 				y = p.y;
 				
-				var angle:Number = (p.turret.rotation - 90) * Math.PI / 180;
+				angle = (p.turret.rotation - 90) * Math.PI / 180;
 				
 				velocityX = SPEED * Math.cos(angle);
 				velocityY = SPEED * Math.sin(angle);

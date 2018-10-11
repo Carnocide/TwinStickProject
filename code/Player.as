@@ -39,8 +39,6 @@
 			y -= vy * Time.dtScaled;
 			
 			
-			trace(dirSpeed);
-			
 			var tx:Number = parent.mouseX - x;
 			var ty:Number = parent.mouseY - y;
 			var angle:Number = Math.atan2(ty, tx);
