@@ -193,7 +193,6 @@
 		private function updatePowerups(): void {
 			for (var i:int = 0; i < powerups.length; i++) {
 				var result = powerups[i].isPowerupDead()
-				trace(result);
 				if(result) {
 					removeChild(powerups[i]);
 					powerups.splice(i, 1);
@@ -233,7 +232,7 @@
 				if (dis < player.radius + bulletsBad[i].radius) {
 					// collision!
 
-					isGameOver = true;
+					//isGameOver = true;
 					
 
 				}
