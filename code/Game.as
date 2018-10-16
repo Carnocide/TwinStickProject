@@ -43,6 +43,9 @@
 			
 		} // function gameLoop
 		
+		/** Switches the Scene if one is provided
+		* @params GameScene newScene The new scene to switch to
+		*/
 		private function switchScene(newScene:GameScene):void {
 			if(newScene){
 				//switch scenes...
