@@ -4,17 +4,27 @@
 	import flash.geom.ColorTransform;
 	import fl.motion.Color;
 	
-	
+	/**
+	* The player class
+	*/
 	public class Player extends MovieClip {
 		
+		/** The radius used for collision */
 		var radius = 16;
-		
+		/** The user has big bullet power up */
 		var bigBulletPowerUp = false;
+		/** The number of multishots */
 		var multishotPowerupCount:int = 0;
+		/** The number of fast bullets */
 		var fastBulletPowerupCount:int = 0;
-		
+		/** The angle the boat is turned*/
 		private var dirAngle:Number = 0;
+		/** the rate of angle speed change in rad/s*/
 		private var dirSpeed:Number = 0;
+		
+		/** The constructor
+		* sets the color to red
+		*/
 		public function Player() {
 			
 			var myColorTransform = new ColorTransform();			
@@ -24,6 +34,9 @@
 			// constructor code
 		}
 		
+		/** The update for player
+		* moves the player, turns the player
+		*/
 		public function update():void {
 			
 			var speed:Number = 180// 50 px/s
