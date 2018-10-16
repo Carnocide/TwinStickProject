@@ -5,10 +5,10 @@
 	/**
 	* This powerup makes a bullet 4 times as large that does not die when colliding
 	*/
-	public class PowerBigBullet extends Power {
+	public class PowerFastshot extends Power {
 		/** overriden */
 		override public function powerupType():String {
-			return "Big Bullet" 
+			return "Fastshot" 
 		}		
 		public var isDead:Boolean = false;
 		/** overriden */
@@ -23,7 +23,7 @@
 		* Constructor.
 		* Sets a random x and y position based on stage size
 		*/
-		public function PowerBigBullet() {
+		public function PowerFastshot() {
 			this.x = Math.random() * 1280;
 			this.y = Math.random() * 720;
 		}
