@@ -1,19 +1,28 @@
 ﻿package code {
 	import flash.events.MouseEvent;
 	import flash.display.MovieClip;
+	import flash.media.SoundTransform;
+	import flash.media.SoundMixer;
 
+	/**
+	 * The Core gameplay scene
+	 * Holds the majority of the game logic
+	 */
 	public class ScenePlay extends GameScene {
-
+		/** The main player object */
 		var player: Player;
+		/** The Score variable */
 		var score: Number = 0;
-
+		/** The Song object, used to play the background music */
+		var song: code.Song = null;
 		/** This array should only hold Snow objects. */
 		var enemies: Array = new Array();
 		/** The number seconds to wait before spawning the next Snow object. */
 		var boatDelaySpawn: Number = 3;
-
+		/** The number of seconds to wait before spawning the next Torpedo Object */
 		var torpedoDelaySpawn: Number = 0;
 
+		/** The number of seconds to wait before spawning the next Big enemy Object */
 		var bigDelaySpawn: Number = 3;
 		/** This array holds only Bullet objects. */
 		var bullets: Array = new Array();
@@ -39,11 +48,15 @@
 			addChild(player);
 			player.x = 600
 			player.y = 350;
+
 		}
 		/** Runs when the scene is first opened, adds the mouse event listener */
 		override public function onBegin(): void {
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 			Time.update();
+			trace("scene play begin");
+			song = new code.Song();
+			song.play(0, 100, new SoundTransform(0.05, 0));
 		}
 		/** Runs when the scene finishes, iterates through all the objects and sets them to is dead
 		 * Should, one the first update of a game reset, remove them from the scene
@@ -62,6 +75,8 @@
 			for (var a: int = 0; a < bulletsBad.length; a++) {
 				bulletsBad[a].isDead = true;
 			}
+
+			SoundMixer.stopAll();
 
 		}
 
@@ -132,8 +147,13 @@
 
 			}
 
-			if (s) bulletsBad.push(b);
-			else bullets.push(b);
+			if (s) {
+				bulletsBad.push(b);
+			} else {
+				bullets.push(b);
+				var bulletShoot: code.SoundBullet = new code.SoundBullet();
+				bulletShoot.play();
+			}
 
 		}
 
@@ -150,7 +170,7 @@
 				boatDelaySpawn = (int)(Math.random() * 2 + 1);
 			}
 		}
-
+		/** Runs every loop, checks the timer and spawns a new torpedo if the timer is less than 0 */
 		private function spawnTorpedoEnemies(): void {
 			// spawn snow:
 			torpedoDelaySpawn -= Time.dtScaled;
@@ -161,7 +181,7 @@
 				torpedoDelaySpawn = 1;
 			}
 		}
-
+		/**Runs every loop, checks the timer and spawns a new big enemy if the timer is less than 0*/
 		private function spawnBigEnemies(): void {
 			// spawn snow:
 			bigDelaySpawn -= Time.dtScaled;
@@ -219,6 +239,8 @@
 					// if the variable is an array,
 					// remove the object from the array
 					enemies.splice(i, 1);
+					var soundExplode: code.SoundExplode = new code.SoundExplode();
+					soundExplode.play();
 				}
 			} // for loop updating snow
 		}
@@ -253,11 +275,13 @@
 			} // for loop updating bullets			
 
 		}
-
+		/** iterates through the powerups collection and checks if its dead*/
 		private function updatePowerups(): void {
 			for (var i: int = 0; i < powerups.length; i++) {
 				var result = powerups[i].isPowerupDead()
 				if (result) {
+					var soundPowerup: code.SoundPowerup = new code.SoundPowerup();
+					soundPowerup.play();
 					removeChild(powerups[i]);
 					powerups.splice(i, 1);
 				}
@@ -279,6 +303,8 @@
 
 		} // end collisionDetection()
 
+
+		/** iterates through the enemies and our bullets collection to check for collision*/
 		private function collisionEnemiesAndOurBullets(): void {
 			for (var i: int = 0; i < enemies.length; i++) {
 				for (var j: int = 0; j < bullets.length; j++) {
@@ -290,7 +316,7 @@
 						// collision!
 						enemies[i].isDead = true;
 						if (!bullets[j].isBig) bullets[j].isDead = true;
-						if (enemies[i].getEnemyType() == "Torpedo Enemy") score +=2;
+						if (enemies[i].getEnemyType() == "Torpedo Enemy") score += 2;
 						if (enemies[i].getEnemyType() == "Boat Enemy") score += 3;
 						if (enemies[i].getEnemyType() == "Big Enemy") score += 6;
 
@@ -301,7 +327,7 @@
 				}
 			}
 		} // end collisionEnemiesAndOurBullets
-
+		/** iterates through the bad bullets collection to check for collision with player*/
 		private function collisionUsAndEnemyBullets(): void {
 			// us and enemy bullets
 			for (var i: int = 0; i < bulletsBad.length; i++) {
@@ -319,6 +345,7 @@
 			}
 		} // end collisionUsAndEnemyBullets
 
+		/** iterates through the enemies collection and our position to check for collision*/
 		private function collisionUsAndEnemies(): void {
 			// us and enemy bullets
 			for (var i: int = 0; i < enemies.length; i++) {
@@ -338,6 +365,7 @@
 			}
 		} // end collisionUsAndTorpedoEnemies
 
+		/** iterates through the powerup and our bullets collection to check for collision*/
 		private function collisionPowerupsAndOurBullets(): void {
 			//powerups and our bullets
 			for (var i: int = 0; i < bullets.length; i++) {

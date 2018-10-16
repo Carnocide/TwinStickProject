@@ -3,19 +3,33 @@
 	import flash.display.MovieClip;
 	
 	/**
-	* This powerup makes a bullet 4 times as large that does not die when colliding
+	* This powerup makes 3 bullets shoot instead of 1
 	*/
 	public class PowerMultishot extends Power {
-		/** overriden */
+		/** overriden from base class
+		* Gives a string of the powerup type
+		* @returns String "Multishot"
+		*/
 		override public function powerupType():String {
 			return "Multishot" 
-		}		
+		}	
+		
+		/**
+		* Boolean value for the health of the powerup if false, is alive
+		*/
 		public var isDead:Boolean = false;
-		/** overriden */
+		/** overrides from base class
+		* Gives a boolean of the powerupLife
+		* @returns Boolean isDead
+		*/
 		override public function isPowerupDead():Boolean {
 			return isDead;
 		}
 		
+		/**
+		* Gives the radius of the powerup
+		* @returns Number 13
+		*/
 		override public function radius():Number{
 			return 13;
 		}

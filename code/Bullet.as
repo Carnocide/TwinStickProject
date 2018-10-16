@@ -2,21 +2,35 @@
 
 	import flash.display.MovieClip;
 
-
+	/**
+	* The class for projectiles
+	*/
 	public class Bullet extends MovieClip {
 
+		/** the magnitude of the vector px/s */
 		private const SPEED: Number = 240;
-
+		/** The x-velocity in px/s. */
 		private var velocityX: Number = 0;
 		/** The y-velocity in px/s. */
 		private var velocityY: Number = 0;
-
+		/** The variable to determine whether or not to deconstruct the bullet */
 		public var isDead: Boolean = false;
+		/** The radius used for collision detection */
 		public var radius: Number = 3;
+		/** boolean for telling if the bullet was shot from the player with the big bullet powerup */
 		public var isBig = false;
 
 		//var velocity:Point = new Point();
 
+		/**
+		* The bullet constructor
+		* determines its angle
+		* determines its x and y components
+		* applies modifiers
+		* @params Player p The player object
+		* @params MovieClip s The enemy movieclip object
+		* @params Number angleAmount optional Supplied when calling from player with multishot
+		*/
 		public function Bullet(p: Player, s: MovieClip = null, angleAmount: Number = 3000) { // 3000 is some arbitrary number
 
 			var angle: Number
@@ -77,7 +91,11 @@
 			this.rotation = angle * 180 / Math.PI + 90;
 		}
 
-
+		/**
+		* The update function for bullets
+		* moves the bullet according to its velocities
+		* Kills it if off the screen
+		*/
 		public function update(): void {
 
 			x += velocityX * Time.dtScaled;

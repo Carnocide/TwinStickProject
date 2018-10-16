@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.getTimer;
+	import flash.media.SoundMixer;
 	
 	/**
 	 * This is the controller class for the entire Game.
@@ -25,6 +26,8 @@
 			switchScene(new SceneTitle())
 			
 			addEventListener(Event.ENTER_FRAME, gameLoop);
+			
+			SoundMixer.stopAll()
 			
 			
 		}

@@ -28,9 +28,9 @@
 			var leftRight = Math.random()
 			y = Math.random() * 720
 			if (leftRight > 0.5) {
-				x = 0;
+				x = -70;
 			} else {
-				x = 1280;
+				x = 1350;
 			}
 			speed = 300; // px/s
 			var dx: Number = gameScene.player.x - x;
